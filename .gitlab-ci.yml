@@ -3,7 +3,6 @@ image: openjdk:11-jdk
 stages:
   - compile
   - test
-  - package
 
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
@@ -22,11 +21,3 @@ test:
   stage: test
   script:
     - ./gradlew test --stacktrace
-
-package:
-  stage: package
-  script:
-    - ./gradlew shadowJar
-  artifacts:
-    paths:
-      - build/libs/*.jar
