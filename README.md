@@ -1,3 +1,4 @@
+![pipeline status](https://gitlab.com/loris.occhipinti2/spacebox-cicd/badges/main/pipeline.svg)
 # Spacebox
 
 A basic application demonstrating [IPFS](https://ipfs.io/) for collaborative data analysis, from the perspective of  a Data
