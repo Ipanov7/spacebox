@@ -1,0 +1,54 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create-table-entry" author="Loris Occhipinti">
+        <sql>
+            CREATE TABLE entry (
+                hash VARCHAR(128) UNIQUE NOT NULL,
+                size BIGINT NOT NULL,
+                type VARCHAR(16) NOT NULL,
+                PRIMARY KEY (hash)
+            )
+        </sql>
+        <rollback>DROP TABLE entry</rollback>
+    </changeSet>
+
+    <changeSet id="create-analysis-task" author="Loris Occhipinti">
+        <sql>
+            CREATE TABLE analysis_task (
+                uuid VARCHAR(64) NOT NULL,
+                public_key TEXT NOT NULL,
+                output_hash VARCHAR(128) NOT NULL,
+                CONSTRAINT fk_entry_id
+                    FOREIGN KEY (output_hash)
+                        REFERENCES entry(hash),
+                PRIMARY KEY (uuid)
+            )
+        </sql>
+        <rollback>DROP TABLE analysis_task</rollback>
+    </changeSet>
+
+    <changeSet id="create-analysis-task-entries" author="Loris Occhipinti">
+        <sql>
+            CREATE TABLE analysis_task_entries (
+                id SERIAL,
+                analysis_task_id VARCHAR(64) NOT NULL,
+                entries_hash VARCHAR(128) NOT NULL,
+                CONSTRAINT fk_entry_id
+                    FOREIGN KEY(entries_hash)
+                        REFERENCES entry(hash),
+                CONSTRAINT fk_analysis_task_id
+                    FOREIGN KEY(analysis_task_id)
+                        REFERENCES analysis_task(uuid),
+                PRIMARY KEY (id)
+            )
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

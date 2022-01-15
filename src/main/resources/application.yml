@@ -1,0 +1,21 @@
+ipfs:
+  node:
+    url: localhost:5001
+
+logging:
+  level:
+    com:
+      spacebox: DEBUG
+
+server:
+  port: 20080
+
+spring:
+  datasource:
+    driver: org.postgresql.Driver
+    url: jdbc:localhost:20001/db
+    username: sa
+    password: sa
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
