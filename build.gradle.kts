@@ -39,6 +39,7 @@ dependencies {
 	// feign
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 	implementation("io.github.openfeign:feign-gson:11.0")
+	implementation("io.github.openfeign.form:feign-form-spring:3.8.0")
 
 	// log4j
 	implementation("org.apache.logging.log4j:log4j-api-kotlin:1.0.0")

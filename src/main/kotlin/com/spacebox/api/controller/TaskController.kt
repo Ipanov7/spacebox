@@ -20,7 +20,7 @@ class TaskController(private val taskManager: TaskManager) {
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun submitAnalysisTask(@RequestBody task: AnalysisTaskRequest): ResponseEntity<Any> {
         logger.info("Submitting new analysis task with ${task.entries}")
-        val entries = taskManager.submitTask(task)
+        taskManager.submitTask(task)
         return ResponseEntity.accepted().build()
     }
 

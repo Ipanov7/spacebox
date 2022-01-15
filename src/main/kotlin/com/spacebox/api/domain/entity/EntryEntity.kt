@@ -1,6 +1,6 @@
 package com.spacebox.api.domain.entity
 
-import com.spacebox.api.domain.CID
+import com.spacebox.api.domain.common.CID
 import com.spacebox.api.domain.common.Type
 import javax.persistence.Column
 import javax.persistence.Entity

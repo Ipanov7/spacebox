@@ -1,10 +1,9 @@
 package com.spacebox.api.domain.entity
 
-import java.util.*
 import javax.persistence.*
 
 @Entity(name = "analysis_task")
-class AnalysisTaskEntity (
+class AnalysisTaskEntity(
 
     @Id
     val uuid: String,

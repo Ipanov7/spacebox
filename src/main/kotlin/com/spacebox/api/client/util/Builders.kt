@@ -3,10 +3,8 @@ package com.spacebox.api.client.util
 import com.spacebox.api.domain.common.AnalysisTask
 import com.spacebox.api.domain.common.Entry
 import com.spacebox.api.domain.common.Type
-import com.spacebox.api.domain.common.User
 import com.spacebox.api.domain.entity.AnalysisTaskEntity
 import com.spacebox.api.domain.entity.EntryEntity
-import com.spacebox.api.domain.entity.UserEntity
 import com.spacebox.api.domain.ipfs.FileStatsResult
 import com.spacebox.api.domain.ipfs.Link
 

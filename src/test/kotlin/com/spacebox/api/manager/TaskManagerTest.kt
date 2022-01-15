@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
+import java.util.*
 
 internal class TaskManagerTest {
     private val mockJpaTaskRepository = mockk<JpaTaskRepository>(relaxed = true)
@@ -31,7 +32,7 @@ internal class TaskManagerTest {
         val entryEntities = listOf(entry, entry, entry).map { testEntryEntityBuilder(it) }
         val outputEntry = testEntryBuilder(hash = "output-hash")
         val outputEntryEntity = testEntryEntityBuilder(outputEntry)
-        val analysisOutput = "Some analysis insights = {...}"
+        val analysisOutput = Base64.getEncoder().encode("Some analysis insights = {...}".toByteArray())
         val task = AnalysisTaskEntity(
             uuid = taskRequest.uuid,
             entries = entryEntities,

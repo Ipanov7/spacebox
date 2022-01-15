@@ -38,13 +38,13 @@
         <sql>
             CREATE TABLE analysis_task_entries (
                 id SERIAL,
-                analysis_task_id VARCHAR(64) NOT NULL,
+                analysis_task_uuid VARCHAR(64) NOT NULL,
                 entries_hash VARCHAR(128) NOT NULL,
                 CONSTRAINT fk_entry_id
                     FOREIGN KEY(entries_hash)
                         REFERENCES entry(hash),
                 CONSTRAINT fk_analysis_task_id
-                    FOREIGN KEY(analysis_task_id)
+                    FOREIGN KEY(analysis_task_uuid)
                         REFERENCES analysis_task(uuid),
                 PRIMARY KEY (id)
             )

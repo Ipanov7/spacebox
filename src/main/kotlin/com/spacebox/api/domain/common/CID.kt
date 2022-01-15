@@ -1,3 +1,3 @@
-package com.spacebox.api.domain
+package com.spacebox.api.domain.common
 
 typealias CID = String

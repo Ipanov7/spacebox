@@ -9,14 +9,12 @@ import com.spacebox.api.manager.impl.ContentManagerImpl
 import com.spacebox.api.testutils.testEntryBuilder
 import com.spacebox.api.testutils.testFileStatsBuilder
 import com.spacebox.api.testutils.testLinkBuilder
-import io.mockk.clearMocks
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
+import java.io.File
 
 internal class ContentManagerTest {
     private val mockIpfsClient = mockk<IpfsClient>(relaxed = true)
@@ -91,13 +89,15 @@ internal class ContentManagerTest {
     @Test
     fun `should upload content`() {
         // fixtures
-        val content = "some content to upload"
+        val content = "some content to upload".toByteArray()
 
         // harness
         val entry = testEntryBuilder(hash = "some-hash")
 
         // given
-        every { mockIpfsClient.add(any()) } returns entry
+        val fileSlot = slot<File>()
+        val fieldNameSlot = slot<String>()
+        every { mockIpfsClient.add(capture(fileSlot), capture(fieldNameSlot), any()) } returns entry
 
         // when
         val result = sut.upload(content)
@@ -105,7 +105,7 @@ internal class ContentManagerTest {
         // then
         expectThat(result) isEqualTo entry
         verify(exactly = 1) {
-            mockIpfsClient.add(content.toByteArray())
+            mockIpfsClient.add(fileSlot.captured, fieldNameSlot.captured, fileSlot.captured.name)
         }
 
     }

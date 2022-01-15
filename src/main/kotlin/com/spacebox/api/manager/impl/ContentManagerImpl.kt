@@ -2,18 +2,14 @@ package com.spacebox.api.manager.impl
 
 import com.spacebox.api.client.IpfsClient
 import com.spacebox.api.client.util.toEntry
-import com.spacebox.api.domain.CID
+import com.spacebox.api.domain.common.CID
 import com.spacebox.api.domain.common.Entry
 import com.spacebox.api.manager.ContentManager
 import org.apache.logging.log4j.kotlin.Logging
 import org.springframework.stereotype.Component
-import java.io.File
 import java.nio.file.Files
-import java.nio.file.Path
 import kotlin.io.path.name
-import kotlin.io.path.pathString
-import kotlin.io.path.readBytes
-import kotlin.io.path.writeText
+import kotlin.io.path.writeBytes
 
 @Component
 class ContentManagerImpl(private val ipfsClient: IpfsClient) : ContentManager {
@@ -28,13 +24,15 @@ class ContentManagerImpl(private val ipfsClient: IpfsClient) : ContentManager {
 
     override fun getEntry(hash: CID): Entry {
         logger.debug("Retrieving entry {cid=$hash}")
-        val stats =  ipfsClient.fileStats("/ipfs/$hash")
+        val stats = ipfsClient.fileStats("/ipfs/$hash")
         return toEntry(stats)
     }
 
-    override fun upload(content: String): Entry {
+    override fun upload(content: ByteArray): Entry {
         logger.debug("Uploading content to IPFS...")
-        return ipfsClient.add(content.toByteArray())
+        val path = Files.createTempFile("", "output")
+        path.writeBytes(content)
+        return ipfsClient.add(path.toFile(), "file", path.name)
     }
 
 

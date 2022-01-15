@@ -9,6 +9,7 @@ import com.spacebox.api.manager.TaskManager
 import com.spacebox.api.repository.JpaTaskRepository
 import org.apache.logging.log4j.kotlin.Logging
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class TaskManagerImpl(
@@ -24,7 +25,7 @@ class TaskManagerImpl(
         val analysisOutput = executeTask(request, entries)
 
         logger.debug("Encrypting analysis with key {pub_key=${request.publicKey}}")
-        val encryptedOutput = analysisOutput
+        val encryptedOutput = Base64.getEncoder().encode(analysisOutput.toByteArray())
 
         logger.debug("Uploading encrypted analysis output on IPFS...")
         val output = contentManager.upload(encryptedOutput)
