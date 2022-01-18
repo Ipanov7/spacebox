@@ -4,6 +4,8 @@
 A basic application demonstrating [IPFS](https://ipfs.io/) for collaborative data analysis, from the perspective of  a Data
 Analysis Provider. 
 
+More about the idea behind this repo can be found in this [article](https://levelup.gitconnected.com/a-spacewalk-with-ipfs-and-geeky-farmers-ab6a2ee14906)
+
 ## Description
 
 This project exposes a simple API to start a data analysis task over a list of file CIDs stored in IPFS. The application
